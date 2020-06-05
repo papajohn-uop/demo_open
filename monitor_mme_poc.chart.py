@@ -214,7 +214,7 @@ class Service(ExecutableService):
             order = ['dns_group']
             definitions = {
                 'dns_group': {
-                    'options': [None, 'DNS Response Time', 'ms', 'name servers', 'dns_query_time.response_time', 'line'],
+                    'options': [None, 'Bytes', 'bytes', 'radio', 'bytes_up_or_down', 'line'],
                     'lines': []
                 }
             }
@@ -278,7 +278,7 @@ class Service(ExecutableService):
             order = ['dns_group']
             definitions = {
                 'dns_group': {
-                    'options': [None, 'DNS Response Time', 'ms', 'name servers', 'dns_query_time.response_time', 'line'],
+                    'options': [None, 'Bytes ', 'bytes', 'Amarisoft DEMO', 'bytes_up_or_down', 'line'],
                     'lines': []
                 }
             }
@@ -309,12 +309,13 @@ class Service(ExecutableService):
 		    for bear_index in range(tmp_bearer_count):
 			#get each bearer
 			tmp_bearer=tmp_bearers[bear_index]
-                        tmp_order='_'.join(('INCR_ue',str(index),'bearer',str(bear_index),'__'))
+                        #tmp_order='_'.join(('INCR_ue',str(index),'bearer',str(bear_index),'__'))
+                        tmp_order='_'.join((tmp_ue['imsi],tmp_bearer['ip']))
                         ul_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
                         dl_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
                         order.append(tmp_order)
 		        definitions[tmp_order] = {
-		            'options': [None, 'DNS Response Time', 'ms', tmp_order, 'dns_query_time.response_time', 'area'],
+		            'options': [None, 'Bytes', 'bytes', tmp_order, 'bytes', 'area'],
 		            'lines': [
 		                [
 		                    ul_line,
