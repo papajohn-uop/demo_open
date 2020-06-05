@@ -310,9 +310,9 @@ class Service(ExecutableService):
 			#get each bearer
 			tmp_bearer=tmp_bearers[bear_index]
                         #tmp_order='_'.join(('INCR_ue',str(index),'bearer',str(bear_index),'__'))
-                        tmp_order='_'.join((tmp_ue['imsi],tmp_bearer['ip']))
-                        ul_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
-                        dl_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
+                        tmp_order='_'.join((tmp_ue['imsi'],tmp_bearer['ip']))
+                        ul_line= 'upload' #'_'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
+                        dl_line= 'download'#'_'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
                         order.append(tmp_order)
 		        definitions[tmp_order] = {
 		            'options': [None, 'Bytes', 'bytes', tmp_order, 'bytes', 'area'],
