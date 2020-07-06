@@ -1,4 +1,4 @@
-
+sudo touch /home/ubuntu/sanity
 echo UseSTARTTLS=YES >> /etc/ssmtp/ssmtp.conf
 echo FromLineOverride=YES >> /etc/ssmtp/ssmtp.conf
 echo root=ego@esy.com >> /etc/ssmtp/ssmtp.conf
