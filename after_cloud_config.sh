@@ -4,7 +4,7 @@ set -e
 cloud-init status --wait  > /dev/null 2>&1
 [ $? -ne 0 ] && echo 'Cloud-init failed' && exit 1
 echo 'Cloud-init succeeded at ' `date -R`  > /home/ubuntu/post-cloud-init.log
-
+echo "First arg: $1"
 
 
 #echo "Start of test script for after cloud init has finished"
