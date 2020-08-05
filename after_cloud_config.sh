@@ -5,7 +5,7 @@ set -e
 #[ $? -ne 0 ] && echo 'Cloud-init failed' && exit 1
 #echo 'Cloud-init succeeded at ' `date -R`  > /home/ubuntu/post-cloud-init.log
 echo "First arg: $1"
-
+tail -5 /var/log/cloud-init-output.log >> /home/ubuntu/post-cloud-init.log
 
 #echo "Start of test script for after cloud init has finished"
 ##set -e
