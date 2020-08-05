@@ -7,4 +7,5 @@ echo 'Cloud-init succeeded at ' `date -R`
 echo 'Cloud-init succeeded at ' `date -R`  > /home/ubuntu/post-cloud-init.log
 #sudo sh -c 'echo "Cloud-init succeeded at " `date -R` >>/file.txt'
 echo "End of test script for after cloud init has finished"
+echo "First arg: $1"
 # Make your magic happen here
