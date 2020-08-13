@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 """
 Very simple HTTP server in python for logging requests
@@ -6,9 +7,11 @@ Usage::
 """
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
+import time
 
 class S(BaseHTTPRequestHandler):
     mylist = list()
+    fn=None
 
     def _set_response(self):
         self.send_response(200)
@@ -20,7 +23,11 @@ class S(BaseHTTPRequestHandler):
         self._set_response()
         #self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
         #logging.info("PAPAJOHN:%s",self.mylist)
-        self.wfile.write("GET request for {}{}".format(self.path, self.mylist).encode('utf-8'))
+        #self.wfile.write("GET request for {}{}".format(self.path, self.mylist).encode('utf-8'))
+        #self.wfile.write("\nGET request for {}".format(self.path).encode('utf-8'))
+        for x in range(len(self.mylist)):
+        #    self.wfile.write ("\n".encode('utf-8'))
+            self.wfile.write (self.mylist[x].encode('utf-8'))
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
@@ -30,12 +37,21 @@ class S(BaseHTTPRequestHandler):
 
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
-        self.mylist.append(post_data.decode('utf-8'))
+        #x="{}\"Entry{}\" :  {} \"".format("{",len(self.mylist),post_data.decode("utf-8"))
+        x="\"Entry{}\" : {}  \"".format(len(self.mylist),post_data.decode("utf-8"))
+        #self.mylist.append(post_data.decode('utf-8'))
+        self.mylist.append(x)
+        lf = open(self.fn,"a")
+        lf.write(x)
+        lf.write("\n")
+        lf.close()
 
 def run(server_class=HTTPServer, handler_class=S, port=8080):
     logging.basicConfig(level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    S.fn="log"+timestr
     logging.info('Starting httpd...\n')
     try:
         httpd.serve_forever()
@@ -51,4 +67,4 @@ if __name__ == '__main__':
         run(port=int(argv[1]))
     else:
         run()
- 
+
