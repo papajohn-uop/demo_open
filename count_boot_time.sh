@@ -1,4 +1,3 @@
-POST request for /ubuntu@auto-vpn-time-1-vpnservervnf-vm-1:~$ cat count_boot_time.sh
 echo {  > /home/ubuntu/time.txt
 echo -n "{\"HOSTNAME\": " >> /home/ubuntu/time.txt
 echo -n "\" $(hostname) \", " >> /home/ubuntu/time.txt
