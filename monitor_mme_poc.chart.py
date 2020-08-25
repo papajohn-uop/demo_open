@@ -187,14 +187,14 @@ class Service(ExecutableService):
         #start creating charts
         self.mme_ue_get_charts()        
 
-        tmp=int(self.json['ue_list'][1]['bearers'][0]['ul_total_bytes'])
+        #tmp=int(self.json['ue_list'][1]['bearers'][0]['ul_total_bytes'])
         #change value
-        self.json['ue_list'][1]['bearers'][0]['ul_total_bytes']=tmp+random.randint(20,100)
-        self.debug('-->',tmp)
-        self.debug('********************')
-        self.debug('********************')
-        self.debug(self.json['ue_list'][0]['bearers'][0]['ul_total_bytes'])
-        self.debug('********************')
+        #self.json['ue_list'][1]['bearers'][0]['ul_total_bytes']=tmp+random.randint(20,100)
+        #self.debug('-->',tmp)
+        #self.debug('********************')
+        #self.debug('********************')
+        #self.debug(self.json['ue_list'][0]['bearers'][0]['ul_total_bytes'])
+        #self.debug('********************')
   	#close file with simulation data
         #self.closeSimFile()
     
