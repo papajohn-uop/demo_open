@@ -7,7 +7,10 @@ from bases.FrameworkServices.ExecutableService import ExecutableService
 import json
 
 import random
-EXIM_COMMAND = "/home/ubuntu/papajohn/wrap_plugin.sh "
+#for proxy
+AMARISOFT_COMMAND = "/home/ubuntu/papajohn/wrap_plugin.sh "
+#for gnodeb
+#AMARISOFT_COMMAND = "/home/wrap_plugin.sh "
 
 items2removeFromJson= ['imeisv',
         'm_tmsi',
@@ -34,7 +37,7 @@ class Service(ExecutableService):
         self.order = list()
         #self.definitions = CHARTS
         self.definitions = dict()
-        self.command = EXIM_COMMAND
+        self.command = AMARISOFT_COMMAND
         #Simulation data
         self.data=None
         #data in json format
