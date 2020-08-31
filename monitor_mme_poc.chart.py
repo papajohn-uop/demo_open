@@ -7,25 +7,7 @@ from bases.FrameworkServices.ExecutableService import ExecutableService
 import json
 
 import random
-#EXIM_COMMAND = 'exim -bpc'
-#EXIM_COMMAND = 'cat /home/ubuntu/papajohn/dummy_msg.txt'
-#this is the good one EXIM_COMMAND = 'cat /home/ubuntu/papajohn/dummy_msg.txt'
-#EXIM_COMMAND = '/home/ubuntu/papajohn/ws.js  10.1.13.10:9000 \'{\"message\":\"ue_get\"}\' '
 EXIM_COMMAND = "/home/ubuntu/papajohn/wrap_plugin.sh "
-#EXIM_COMMAND="  /home/ubuntu/papajohn/ws.js 172.16.10.203:9000 '{\"message\":\"ue_get\"}'  "#\> /home/ubuntu/papajohn/dummy_msg.txt"
-#ORDER = [
-#    'qemails',
-#]
-
-#CHARTS = {
-#    'qemails': {
-#        'options': [None, 'Exim Queue Emails', 'emails', 'queue', 'exim.qemails', 'line'],
-#        'lines': [
-#            ['emails', None, 'absolute']
-#        ]
-#    }
-#}
-
 
 items2removeFromJson= ['imeisv',
         'm_tmsi',
@@ -62,50 +44,8 @@ class Service(ExecutableService):
         #values to show at graphs
 	self.values=dict()
 
-    #open simulation file
-    def openSimFile(self):
-        raw_data = self._get_raw_data()#[0]
-        if not raw_data:
-            self.data=None
-        raw_data.pop(0)
-        raw_data.pop(0)
-        raw_data.pop(0)
-        raw_data.pop(0)
-        raw_data.pop(0)
-        raw_data.pop(0)
-        raw_data.pop(0)
-        self.data=raw_data
-
-    #close simulation file
-    def closeSimFile(self):
-       
-        #count how many ues
-        ues_count=len(self.json['ue_list'])
-        #get ues
-        ues_json=self.json['ue_list']
-        ####################################
-	#######SIMULATION
-	#change upload and download values 
-	for index in range(ues_count):
-	    tmp_ue=ues_json[index]      
-	    if 'bearers' in tmp_ue:
-	        #get bearers
-	        tmp_bearers=tmp_ue['bearers']
-	        tmp_bearer_count=len(tmp_ue['bearers'])
-
-	        for bear_index in range(tmp_bearer_count):
-		    #get each bearer
-		    tmp_bearer=tmp_bearers[bear_index]
-		    if tmp_bearer['ul_total_bytes']:
-		        tmp_bearer['ul_total_bytes']=tmp_bearer['ul_total_bytes']+random.randint(200,1200)
-		    if tmp_bearer['dl_total_bytes']:
-		        tmp_bearer['dl_total_bytes']=tmp_bearer['ul_total_bytes']+random.randint(2000,12000)
-
-        #with open('/home/papajohn/REPOSITORIES/netdata/dummy_msg.txt', 'w') as outfile:
-        with open('/home/ubuntu/papajohn/dummy_msg.txt', 'w') as outfile:
-            json.dump(self.json, outfile)
-	#######################################3
-	
+    
+    
     #create json from data
     def createJson(self):
         
@@ -124,18 +64,6 @@ class Service(ExecutableService):
         #data =tmp_data.read()[176:]  # json.load(json_file)
         data =json.loads(tmp_data[176:])  # json.load(json_file)
         self.json=data
-        return;
-        with open('/home/ubuntu/papajohn/dummy_msg.txt') as json_file:
-            data =json_file.read()[173:]  # json.load(json_file)
-        #self.debug(data)
-        self.debug(data[0])  
-        self.debug(data[1])  
-        self.debug(data[2])  
-        self.debug(data[3])  
-        self.json=json.loads(data)
-        #self.debug(self.json)
-    #get the ues from json data
-
 
     def stripJson(self):
         #count how many ues
@@ -175,9 +103,6 @@ class Service(ExecutableService):
         self.debug(raw_data)
         self.debug('-------------------------------->2')
 
-	#open file with simulation data
-        #self.openSimFile()
-
         #create initial json
         self.createJson()
 
@@ -187,28 +112,16 @@ class Service(ExecutableService):
         #start creating charts
         self.mme_ue_get_charts()        
 
-        #tmp=int(self.json['ue_list'][1]['bearers'][0]['ul_total_bytes'])
-        #change value
-        #self.json['ue_list'][1]['bearers'][0]['ul_total_bytes']=tmp+random.randint(20,100)
-        #self.debug('-->',tmp)
-        #self.debug('********************')
-        #self.debug('********************')
-        #self.debug(self.json['ue_list'][0]['bearers'][0]['ul_total_bytes'])
-        #self.debug('********************')
-  	#close file with simulation data
-        #self.closeSimFile()
     
    
         try:
-            #return {'emails': tmp}
-            #return {'ue_0_bearer_1_ul': 11}
             # for non zero valuesretVal = {x:y for x,y in self.values.items() if y!=0}
             return self.values
             #return retVal
         except (ValueError, AttributeError):
             return None
                                  
-
+'''
     def create_charts_absolute(self,aggregate, server_list):
         if aggregate:
             order = ['dns_group']
@@ -271,7 +184,7 @@ class Service(ExecutableService):
 
             self.order= order
 	    self.definitions=definitions
-
+'''
 
     def create_charts_incremental(self,aggregate, server_list):
         if aggregate:
