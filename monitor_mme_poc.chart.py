@@ -123,72 +123,7 @@ class Service(ExecutableService):
             #return retVal
         except (ValueError, AttributeError):
             return None
-                                 
-'''
-    def create_charts_absolute(self,aggregate, server_list):
-        if aggregate:
-            order = ['dns_group']
-            definitions = {
-                'dns_group': {
-                    'options': [None, 'Bytes', 'bytes', 'radio', 'bytes_up_or_down', 'line'],
-                    'lines': []
-                }
-            }
-            for ns in server_list:
-                dim = [
-                    '_'.join(['ns', ns.replace('.', '_')]),
-                    ns,
-                    'absolute',
-                ]
-                definitions['dns_group']['lines'].append(dim)
-
-            self.order= order
-	    self.definitions=definitions
-        else:
-            order=list()
-            definitions = dict()
-            #order = [''.join(['dns_', ns.replace('.', '_')]) for ns in server_list]
-            ues_count=len(self.json['ue_list'])
-	    for index in range(ues_count):
-		tmp_ue=self.ues_json[index]      
-		#get data for each bearer 
-		tmp_bearer_count=0
-		if 'bearers' in tmp_ue:
-		    #get bearers
-		    tmp_bearers=tmp_ue['bearers']
-		    tmp_bearer_count=len(tmp_ue['bearers'])
-		
-		    for bear_index in range(tmp_bearer_count):
-			#get each bearer
-			tmp_bearer=tmp_bearers[bear_index]
-                        tmp_order='_'.join(('ue',str(index),'bearer',str(bear_index),'__'))
-                        ul_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
-                        dl_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
-                        order.append(tmp_order)
-		        definitions[tmp_order] = {
-		            'options': [None, 'DNS Response Time', 'ms', tmp_order, 'dns_query_time.response_time', 'area'],
-		            'lines': [
-		                [
-		                    ul_line,
-		                    ul_line,
-		                    'absolute',
-                                ],
-				[
-		                    dl_line,
-		                    dl_line,
-		                    'absolute'
-		                ]
-		            ]
-		        }
-			#create a dict with the values for each line 
-			#TODO: Once this works create the this dict on another function and use as required
-			self.values[ul_line] = tmp_bearer['ul_total_bytes'] 
-			self.values[dl_line] = tmp_bearer['dl_total_bytes'] 
-
-            self.order= order
-	    self.definitions=definitions
-'''
-
+         
     def create_charts_incremental(self,aggregate, server_list):
         if aggregate:
             order = ['dns_group']
@@ -255,4 +190,70 @@ class Service(ExecutableService):
             self.order= order
 	    self.definitions=definitions
 
+
+	
+'''
+    def create_charts_absolute(self,aggregate, server_list):
+        if aggregate:
+            order = ['dns_group']
+            definitions = {
+                'dns_group': {
+                    'options': [None, 'Bytes', 'bytes', 'radio', 'bytes_up_or_down', 'line'],
+                    'lines': []
+                }
+            }
+            for ns in server_list:
+                dim = [
+                    '_'.join(['ns', ns.replace('.', '_')]),
+                    ns,
+                    'absolute',
+                ]
+                definitions['dns_group']['lines'].append(dim)
+
+            self.order= order
+	    self.definitions=definitions
+        else:
+            order=list()
+            definitions = dict()
+            #order = [''.join(['dns_', ns.replace('.', '_')]) for ns in server_list]
+            ues_count=len(self.json['ue_list'])
+	    for index in range(ues_count):
+		tmp_ue=self.ues_json[index]      
+		#get data for each bearer 
+		tmp_bearer_count=0
+		if 'bearers' in tmp_ue:
+		    #get bearers
+		    tmp_bearers=tmp_ue['bearers']
+		    tmp_bearer_count=len(tmp_ue['bearers'])
+		
+		    for bear_index in range(tmp_bearer_count):
+			#get each bearer
+			tmp_bearer=tmp_bearers[bear_index]
+                        tmp_order='_'.join(('ue',str(index),'bearer',str(bear_index),'__'))
+                        ul_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
+                        dl_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
+                        order.append(tmp_order)
+		        definitions[tmp_order] = {
+		            'options': [None, 'DNS Response Time', 'ms', tmp_order, 'dns_query_time.response_time', 'area'],
+		            'lines': [
+		                [
+		                    ul_line,
+		                    ul_line,
+		                    'absolute',
+                                ],
+				[
+		                    dl_line,
+		                    dl_line,
+		                    'absolute'
+		                ]
+		            ]
+		        }
+			#create a dict with the values for each line 
+			#TODO: Once this works create the this dict on another function and use as required
+			self.values[ul_line] = tmp_bearer['ul_total_bytes'] 
+			self.values[dl_line] = tmp_bearer['dl_total_bytes'] 
+
+            self.order= order
+	    self.definitions=definitions
+'''
 
