@@ -148,40 +148,40 @@ class Service(ExecutableService):
             definitions = dict()
             #order = [''.join(['dns_', ns.replace('.', '_')]) for ns in server_list]
             ues_count=len(self.json['ue_list'])
-        for index in range(ues_count):
-        tmp_ue=self.ues_json[index]      
-        #get data for each bearer 
-        tmp_bearer_count=0
-        if 'bearers' in tmp_ue:
-            #get bearers
-            tmp_bearers=tmp_ue['bearers']
-            tmp_bearer_count=len(tmp_ue['bearers'])
-        
-            for bear_index in range(tmp_bearer_count):
-            #get each bearer
-            tmp_bearer=tmp_bearers[bear_index]
-                        #tmp_order='_'.join(('INCR_ue',str(index),'bearer',str(bear_index),'__'))
-                        tmp_order='_'.join((tmp_ue['imsi'],tmp_bearer['ip']))
-                        ul_line= 'upload'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
-                        dl_line= 'download'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
-                        order.append(tmp_order)
-                definitions[tmp_order] = {
-                    'options': [None, 'Bytes', 'bytes', tmp_order, 'bytes', 'area'],
-                    'lines': [
+            for index in range(ues_count):
+                tmp_ue=self.ues_json[index]      
+                #get data for each bearer 
+                tmp_bearer_count=0
+                if 'bearers' in tmp_ue:
+                    #get bearers
+                    tmp_bearers=tmp_ue['bearers']
+                    tmp_bearer_count=len(tmp_ue['bearers'])
+                
+                    for bear_index in range(tmp_bearer_count):
+                    #get each bearer
+                    tmp_bearer=tmp_bearers[bear_index]
+						#tmp_order='_'.join(('INCR_ue',str(index),'bearer',str(bear_index),'__'))
+						tmp_order='_'.join((tmp_ue['imsi'],tmp_bearer['ip']))
+						ul_line= 'upload'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
+						dl_line= 'download'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
+						order.append(tmp_order)
+                        definitions[tmp_order] = {
+                            'options': [None, 'Bytes', 'bytes', tmp_order, 'bytes', 'area'],
+                            'lines': [
+                                [
+                                    ul_line,
+                                    ul_line,
+                                  #  'absolute',
+                                            'incremental'
+                                ],
                         [
-                            ul_line,
-                            ul_line,
-                          #  'absolute',
-                                    'incremental'
-                        ],
-                [
-                            dl_line,
-                            dl_line,
-                          #  'absolute',
-                                    'incremental'
-                        ]
-                    ]
-                }
+                                    dl_line,
+                                    dl_line,
+                                  #  'absolute',
+                                            'incremental'
+                                ]
+                            ]
+                        }
             #create a dict with the values for each line 
             #TODO: Once this works create the this dict on another function and use as required
             self.values[ul_line] = tmp_bearer['ul_total_bytes'] 
@@ -228,11 +228,11 @@ class Service(ExecutableService):
         
             for bear_index in range(tmp_bearer_count):
             #get each bearer
-            tmp_bearer=tmp_bearers[bear_index]
-                        tmp_order='_'.join(('ue',str(index),'bearer',str(bear_index),'__'))
-                        ul_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
-                        dl_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
-                        order.append(tmp_order)
+                tmp_bearer=tmp_bearers[bear_index]
+                tmp_order='_'.join(('ue',str(index),'bearer',str(bear_index),'__'))
+                ul_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
+                dl_line= '_'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
+                order.append(tmp_order)
                 definitions[tmp_order] = {
                     'options': [None, 'DNS Response Time', 'ms', tmp_order, 'dns_query_time.response_time', 'area'],
                     'lines': [
