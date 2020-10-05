@@ -165,8 +165,8 @@ class Service(ExecutableService):
 		    ul_line= 'upload'.join(('ue',str(index),'bearer',str(bear_index),'ul'))
 		    dl_line= 'download'.join(('ue',str(index),'bearer',str(bear_index),'dl'))
 		    order.append(tmp_order)
-                    definitions[tmp_order] = {
-                            'options': [None, 'Bytes', 'bytes', tmp_order, 'bytes', 'area'],
+            definitions[tmp_order] = {
+                      'options': [None, 'Bytes', 'bytes', tmp_order, 'bytes', 'area'],
                             'lines': [
                                 [
                                     ul_line,
@@ -188,7 +188,7 @@ class Service(ExecutableService):
             self.values[dl_line] = tmp_bearer['dl_total_bytes'] 
 
             self.order= order
-        self.definitions=definitions
+            self.definitions=definitions
 
 
     
