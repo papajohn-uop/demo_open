@@ -142,7 +142,7 @@ class Service(ExecutableService):
                 definitions['dns_group']['lines'].append(dim)
 
             self.order= order
-        self.definitions=definitions
+            self.definitions=definitions
         else:
             order=list()
             definitions = dict()
